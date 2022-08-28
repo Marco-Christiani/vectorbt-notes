@@ -1,14 +1,36 @@
 #+title: Vbt
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
-#+options: toc:nil
+#+OPTIONS: ^:nil
+# above option disables super/subscripting bc underscores
 
-[[https://vectorbt.dev/api/][Docs: Dev]]
- - [[https://vectorbt.dev/getting-started/resources/][Resources and Examples]]
- - [[https://vectorbt.dev/api/portfolio/nb/][Vbt Numba Functions]]
-[[https://vectorbt.pro/tutorials/basic-rsi-strategy/][Docs: Pro (tutorials)]]
+* Table of Contents :TOC:
+- [[#useful-documentation][Useful Documentation]]
+- [[#unanswered-questions][Unanswered Questions]]
+  - [[#strategy-implementation-questions][Strategy Implementation Questions]]
+- [[#core-concepts][Core Concepts]]
+  - [[#flexible-indexing][Flexible Indexing]]
+  - [[#broadcasting][Broadcasting]]
+  - [[#using-columns][Using Columns]]
+  - [[#grouping][Grouping]]
+  - [[#call-hierarchy][Call Hierarchy]]
+- [[#workflow-phases][Workflow Phases]]
+  - [[#preparation][Preparation]]
+  - [[#simulation][Simulation]]
+  - [[#construction][Construction]]
+  - [[#analysis][Analysis]]
+- [[#simulate_nb][simulate_nb()]]
+  - [[#call-sequence][Call Sequence]]
+  - [[#signature][Signature]]
+  - [[#callbacks][Callbacks]]
+- [[#simulate_row_wise_nb][simulate_row_wise_nb()]]
 
-* Topics
-** Questions
+* Useful Documentation
+- [[https://vectorbt.dev/api/][Docs: Dev]]
+- [[https://vectorbt.pro/tutorials/basic-rsi-strategy/][Docs: Pro (tutorials)]]
+- [[https://vectorbt.dev/getting-started/resources/][Resources and Examples]]
+- [[https://vectorbt.dev/api/portfolio/nb/][Vbt Numba Functions]]
+
+* Unanswered Questions
 Have several unanswered questions about this thing.
 
 Focusing on ~from_order_func()~ as its the most robust backtest flow.
@@ -31,6 +53,8 @@ What are best practices for sharing memory in functional programming paradigm
 - How can we retrieve this state after execution?
   - Need a reference from outer scope?
   - I feel like this is where Rust shines...
+
+* Core Concepts
 ** Flexible Indexing
 [[https://vectorbt.pro/features/#flexibility][Docs]]
 ** Broadcasting
@@ -44,16 +68,16 @@ As a rule of thumb:
   - If any array is a DataFrame and this array is a one-dimensional NumPy array, broadcasts along columns
   - If this array is a Series, always broadcasts along rows
   - Lists and other sequences are converted to NumPy arrays prior to broadcasting
-** Using Columns :keyconcept:
+** Using Columns
 [[https://vectorbt.pro/tutorials/basic-rsi-strategy/#using-columns][Docs]]
 
 Vectorbt is built around the idea that you can represent each asset, period, parameter combination, and a backtest in general, as a column in a two-dimensional array.
 Instead of computing everything in a loop we can change our code to accept parameters as arrays.
 A function that takes such array will automatically convert multiple parameters into multiple columns
-** Grouping :keyconcept:
+** Grouping
 [[https://vectorbt.dev/api/portfolio/base/#grouping][Docs]]
 
-** Call Hierarchy :keyconcept:
+** Call Hierarchy 
 See [[https://vectorbt.dev/api/portfolio/nb/#vectorbt.portfolio.nb.simulate_nb][simulate_nb() docs]]
 
 Based on an imaginary 2D frame
@@ -133,11 +157,11 @@ Occurs in ~Portfolio~ object
 
 #+CAPTION: simulate_nb call sequence
 #+NAME:   fig:simulate_nb_fig
-[[./simulate_nb.gif]]
+[[./assets/simulate_nb.gif]]
 
 #+CAPTION: context information
 #+NAME:   fig:context_fig
-[[./context_info.png]]
+[[./assets/context_info.png]]
 
 *** Visualize Sequence
 Note that this changes for row-wise variation
@@ -240,6 +264,6 @@ Also set call_seq order (i.e. have sells execute first)
 *** post_order_func_nb()
 
 * simulate_row_wise_nb()
-pre_row_func_nb: only called if there is at least on active segment in the row.
-pre_segment_func_nb/order_func_nb: only called if their segment is active.
-If the main task of pre_row_func_nb is to activate/deactivate segments, all segments should be activated by default to allow pre_row_func_nb to be called.
+- pre_row_func_nb: only called if there is at least on active segment in the row.
+- pre_segment_func_nb/order_func_nb: only called if their segment is active.
+- If the main task of pre_row_func_nb is to activate/deactivate segments, all segments should be activated by default to allow pre_row_func_nb to be called.
