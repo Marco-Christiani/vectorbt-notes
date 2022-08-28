@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-08-27 Sat 22:18 -->
+<!-- 2022-08-27 Sat 22:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vbt</title>
@@ -23,60 +23,63 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfa3778e">1. Useful Documentation</a></li>
-<li><a href="#org51e6c3c">2. Topics</a>
+<li><a href="#orgd443a96">1. Useful Documentation</a></li>
+<li><a href="#org8940262">2. Unanswered Questions</a>
 <ul>
-<li><a href="#org8b4c562">2.1. Questions</a></li>
-<li><a href="#org984e0e6">2.2. Strategy Implementation Questions</a></li>
-<li><a href="#orgca7c4d9">2.3. Flexible Indexing</a></li>
-<li><a href="#orgc37d366">2.4. Broadcasting</a></li>
-<li><a href="#org53b3449">2.5. Using Columns&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></a></li>
-<li><a href="#org697eccf">2.6. Grouping&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></a></li>
-<li><a href="#org318fe83">2.7. Call Hierarchy&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></a>
+<li><a href="#orge98920f">2.1. Strategy Implementation Questions</a></li>
+</ul>
+</li>
+<li><a href="#org9705740">3. Core Concepts</a>
 <ul>
-<li><a href="#org891d388">2.7.1. Movement patterns</a></li>
-<li><a href="#org1cb193d">2.7.2. Blocks</a></li>
+<li><a href="#org61e5930">3.1. Flexible Indexing</a></li>
+<li><a href="#org500b05e">3.2. Broadcasting</a></li>
+<li><a href="#org348a165">3.3. Using Columns</a></li>
+<li><a href="#orgdd88610">3.4. Grouping</a></li>
+<li><a href="#orgd42a47a">3.5. Call Hierarchy</a>
+<ul>
+<li><a href="#org328ed80">3.5.1. Movement patterns</a></li>
+<li><a href="#orgb8ec7d1">3.5.2. Blocks</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org7bd25b6">3. Workflow Phases</a>
+<li><a href="#org702eb33">4. Workflow Phases</a>
 <ul>
-<li><a href="#org4b2fe77">3.1. Preparation</a></li>
-<li><a href="#org7a21d98">3.2. Simulation</a></li>
-<li><a href="#org5f8f941">3.3. Construction</a></li>
-<li><a href="#org9e80bd0">3.4. Analysis</a></li>
+<li><a href="#orgd1b4b4e">4.1. Preparation</a></li>
+<li><a href="#org5af1ac8">4.2. Simulation</a></li>
+<li><a href="#org2028f7c">4.3. Construction</a></li>
+<li><a href="#orgc107954">4.4. Analysis</a></li>
 </ul>
 </li>
-<li><a href="#orgfb72ff1">4. simulate_nb()</a>
+<li><a href="#orgfc5b140">5. simulate_nb()</a>
 <ul>
-<li><a href="#org991b8a8">4.1. Call Sequence</a>
+<li><a href="#org575fd04">5.1. Call Sequence</a>
 <ul>
-<li><a href="#org16024d4">4.1.1. Visualize Sequence</a></li>
+<li><a href="#org2732b17">5.1.1. Visualize Sequence</a></li>
 </ul>
 </li>
-<li><a href="#orga95cf72">4.2. Signature</a></li>
-<li><a href="#orgf0fede8">4.3. Callbacks</a>
+<li><a href="#org38b3241">5.2. Signature</a></li>
+<li><a href="#orgfbdd583">5.3. Callbacks</a>
 <ul>
-<li><a href="#org9def397">4.3.1. pre_sim_func_nb()</a></li>
-<li><a href="#orgceb6094">4.3.2. post_sim_func_nb()</a></li>
-<li><a href="#orgc4bbb19">4.3.3. pre_group_func_nb()</a></li>
-<li><a href="#orgecf853f">4.3.4. post_group_func_nb()</a></li>
-<li><a href="#org431c114">4.3.5. pre_segment_func_nb()</a></li>
-<li><a href="#org1466858">4.3.6. post_segment_func_nb()</a></li>
-<li><a href="#org3a12253">4.3.7. order_func_nb()</a></li>
-<li><a href="#org8566d7d">4.3.8. post_order_func_nb()</a></li>
+<li><a href="#org9ee1440">5.3.1. pre_sim_func_nb()</a></li>
+<li><a href="#org37041a0">5.3.2. post_sim_func_nb()</a></li>
+<li><a href="#org241fa08">5.3.3. pre_group_func_nb()</a></li>
+<li><a href="#orgb3dfa5a">5.3.4. post_group_func_nb()</a></li>
+<li><a href="#orgb67ef1e">5.3.5. pre_segment_func_nb()</a></li>
+<li><a href="#org3d7b06d">5.3.6. post_segment_func_nb()</a></li>
+<li><a href="#org17f3e8e">5.3.7. order_func_nb()</a></li>
+<li><a href="#org73fcba8">5.3.8. post_order_func_nb()</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd3a1d58">5. simulate_row_wise_nb()</a></li>
+<li><a href="#org0062712">6. simulate_row_wise_nb()</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfa3778e" class="outline-2">
-<h2 id="orgfa3778e"><span class="section-number-2">1.</span> Useful Documentation</h2>
+<div id="outline-container-orgd443a96" class="outline-2">
+<h2 id="orgd443a96"><span class="section-number-2">1.</span> Useful Documentation</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><a href="https://vectorbt.dev/api/">Docs: Dev</a></li>
@@ -87,13 +90,9 @@
 </div>
 </div>
 
-<div id="outline-container-org51e6c3c" class="outline-2">
-<h2 id="org51e6c3c"><span class="section-number-2">2.</span> Topics</h2>
+<div id="outline-container-org8940262" class="outline-2">
+<h2 id="org8940262"><span class="section-number-2">2.</span> Unanswered Questions</h2>
 <div class="outline-text-2" id="text-2">
-</div>
-<div id="outline-container-org8b4c562" class="outline-3">
-<h3 id="org8b4c562"><span class="section-number-3">2.1.</span> Questions</h3>
-<div class="outline-text-3" id="text-2-1">
 <p>
 Have several unanswered questions about this thing.
 </p>
@@ -118,11 +117,10 @@ Focusing on <code>from_order_func()</code> as its the most robust backtest flow.
 </ul></li>
 </ul>
 </div>
-</div>
 
-<div id="outline-container-org984e0e6" class="outline-3">
-<h3 id="org984e0e6"><span class="section-number-3">2.2.</span> Strategy Implementation Questions</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orge98920f" class="outline-3">
+<h3 id="orge98920f"><span class="section-number-3">2.1.</span> Strategy Implementation Questions</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 What are best practices for sharing memory in functional programming paradigm
 </p>
@@ -140,17 +138,23 @@ What are best practices for sharing memory in functional programming paradigm
 </ul>
 </div>
 </div>
-<div id="outline-container-orgca7c4d9" class="outline-3">
-<h3 id="orgca7c4d9"><span class="section-number-3">2.3.</span> Flexible Indexing</h3>
-<div class="outline-text-3" id="text-2-3">
+</div>
+
+<div id="outline-container-org9705740" class="outline-2">
+<h2 id="org9705740"><span class="section-number-2">3.</span> Core Concepts</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org61e5930" class="outline-3">
+<h3 id="org61e5930"><span class="section-number-3">3.1.</span> Flexible Indexing</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 <a href="https://vectorbt.pro/features/#flexibility">Docs</a>
 </p>
 </div>
 </div>
-<div id="outline-container-orgc37d366" class="outline-3">
-<h3 id="orgc37d366"><span class="section-number-3">2.4.</span> Broadcasting</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-org500b05e" class="outline-3">
+<h3 id="org500b05e"><span class="section-number-3">3.2.</span> Broadcasting</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 <a href="https://vectorbt.pro/documentation/fundamentals/#broadcasting">Docs: Pro</a>
 <a href="https://vectorbt.dev/api/portfolio/base/#flexible-indexing">Docs: Dev</a>
@@ -169,9 +173,9 @@ As a rule of thumb:
 </ul>
 </div>
 </div>
-<div id="outline-container-org53b3449" class="outline-3">
-<h3 id="org53b3449"><span class="section-number-3">2.5.</span> Using Columns&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-org348a165" class="outline-3">
+<h3 id="org348a165"><span class="section-number-3">3.3.</span> Using Columns</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 <a href="https://vectorbt.pro/tutorials/basic-rsi-strategy/#using-columns">Docs</a>
 </p>
@@ -183,18 +187,18 @@ A function that takes such array will automatically convert multiple parameters 
 </p>
 </div>
 </div>
-<div id="outline-container-org697eccf" class="outline-3">
-<h3 id="org697eccf"><span class="section-number-3">2.6.</span> Grouping&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></h3>
-<div class="outline-text-3" id="text-2-6">
+<div id="outline-container-orgdd88610" class="outline-3">
+<h3 id="orgdd88610"><span class="section-number-3">3.4.</span> Grouping</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 <a href="https://vectorbt.dev/api/portfolio/base/#grouping">Docs</a>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org318fe83" class="outline-3">
-<h3 id="org318fe83"><span class="section-number-3">2.7.</span> Call Hierarchy&#xa0;&#xa0;&#xa0;<span class="tag"><span class="keyconcept">keyconcept</span></span></h3>
-<div class="outline-text-3" id="text-2-7">
+<div id="outline-container-orgd42a47a" class="outline-3">
+<h3 id="orgd42a47a"><span class="section-number-3">3.5.</span> Call Hierarchy</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
 See <a href="https://vectorbt.dev/api/portfolio/nb/#vectorbt.portfolio.nb.simulate_nb">simulate_nb() docs</a>
 </p>
@@ -216,9 +220,9 @@ NOTE: You can only safely access data points that are to the left of the current
 </p>
 </div>
 
-<div id="outline-container-org891d388" class="outline-4">
-<h4 id="org891d388"><span class="section-number-4">2.7.1.</span> Movement patterns</h4>
-<div class="outline-text-4" id="text-2-7-1">
+<div id="outline-container-org328ed80" class="outline-4">
+<h4 id="org328ed80"><span class="section-number-4">3.5.1.</span> Movement patterns</h4>
+<div class="outline-text-4" id="text-3-5-1">
 <p>
 In both patterns, we move top-to-bottom (time) and left-to-right (assets/features)
 Differs in which axis moves faster
@@ -237,9 +241,9 @@ Differs in which axis moves faster
 </ol>
 </div>
 </div>
-<div id="outline-container-org1cb193d" class="outline-4">
-<h4 id="org1cb193d"><span class="section-number-4">2.7.2.</span> Blocks</h4>
-<div class="outline-text-4" id="text-2-7-2">
+<div id="outline-container-orgb8ec7d1" class="outline-4">
+<h4 id="orgb8ec7d1"><span class="section-number-4">3.5.2.</span> Blocks</h4>
+<div class="outline-text-4" id="text-3-5-2">
 <p>
 Frame is divided into blocks:
 </p>
@@ -278,16 +282,16 @@ Each block has:
 </div>
 </div>
 </div>
-<div id="outline-container-org7bd25b6" class="outline-2">
-<h2 id="org7bd25b6"><span class="section-number-2">3.</span> Workflow Phases</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org702eb33" class="outline-2">
+<h2 id="org702eb33"><span class="section-number-2">4.</span> Workflow Phases</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 <a href="https://vectorbt.dev/api/portfolio/base/#workflow">Docs</a>
 </p>
 </div>
-<div id="outline-container-org4b2fe77" class="outline-3">
-<h3 id="org4b2fe77"><span class="section-number-3">3.1.</span> Preparation</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgd1b4b4e" class="outline-3">
+<h3 id="orgd1b4b4e"><span class="section-number-3">4.1.</span> Preparation</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 Occurs in a particular class method
 </p>
@@ -302,9 +306,9 @@ Occurs in a particular class method
 </div>
 </div>
 
-<div id="outline-container-org7a21d98" class="outline-3">
-<h3 id="org7a21d98"><span class="section-number-3">3.2.</span> Simulation</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-org5af1ac8" class="outline-3">
+<h3 id="org5af1ac8"><span class="section-number-3">4.2.</span> Simulation</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 Occurs in numba simulation function
 </p>
@@ -321,9 +325,9 @@ For each asset and timestamp (= element):
 </ul>
 </div>
 </div>
-<div id="outline-container-org5f8f941" class="outline-3">
-<h3 id="org5f8f941"><span class="section-number-3">3.3.</span> Construction</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-org2028f7c" class="outline-3">
+<h3 id="org2028f7c"><span class="section-number-3">4.3.</span> Construction</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 Occurs in class method
 </p>
@@ -332,9 +336,9 @@ Occurs in class method
 </ul>
 </div>
 </div>
-<div id="outline-container-org9e80bd0" class="outline-3">
-<h3 id="org9e80bd0"><span class="section-number-3">3.4.</span> Analysis</h3>
-<div class="outline-text-3" id="text-3-4">
+<div id="outline-container-orgc107954" class="outline-3">
+<h3 id="orgc107954"><span class="section-number-3">4.4.</span> Analysis</h3>
+<div class="outline-text-3" id="text-4-4">
 <p>
 Occurs in <code>Portfolio</code> object
 </p>
@@ -345,16 +349,16 @@ Occurs in <code>Portfolio</code> object
 </div>
 </div>
 
-<div id="outline-container-orgfb72ff1" class="outline-2">
-<h2 id="orgfb72ff1"><span class="section-number-2">4.</span> simulate_nb()</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgfc5b140" class="outline-2">
+<h2 id="orgfc5b140"><span class="section-number-2">5.</span> simulate_nb()</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 <a href="https://vectorbt.dev/api/portfolio/nb/#vectorbt.portfolio.nb.simulate_nb">Docs</a>
 </p>
 </div>
-<div id="outline-container-org991b8a8" class="outline-3">
-<h3 id="org991b8a8"><span class="section-number-3">4.1.</span> Call Sequence</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org575fd04" class="outline-3">
+<h3 id="org575fd04"><span class="section-number-3">5.1.</span> Call Sequence</h3>
+<div class="outline-text-3" id="text-5-1">
 <ul class="org-ul">
 <li><code>pre_sim_func_nb(SimulationContext):</code> Before Simulation</li>
 <li><code>post_sim_func_nb(SimulationContext):</code> After Simulation</li>
@@ -367,23 +371,23 @@ Occurs in <code>Portfolio</code> object
 </ul>
 
 
-<div id="orgd601a4f" class="figure">
+<div id="org2153793" class="figure">
 <p><img src="./assets/simulate_nb.gif" alt="simulate_nb.gif" />
 </p>
 <p><span class="figure-number">Figure 1: </span>simulate_nb call sequence</p>
 </div>
 
 
-<div id="orgb9a0d46" class="figure">
+<div id="org62ffb09" class="figure">
 <p><img src="./assets/context_info.png" alt="context_info.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>context information</p>
 </div>
 </div>
 
-<div id="outline-container-org16024d4" class="outline-4">
-<h4 id="org16024d4"><span class="section-number-4">4.1.1.</span> Visualize Sequence</h4>
-<div class="outline-text-4" id="text-4-1-1">
+<div id="outline-container-org2732b17" class="outline-4">
+<h4 id="org2732b17"><span class="section-number-4">5.1.1.</span> Visualize Sequence</h4>
+<div class="outline-text-4" id="text-5-1-1">
 <p>
 Note that this changes for row-wise variation
 Can be reordered to reflect the in-out sequence style
@@ -408,13 +412,13 @@ Can be reordered to reflect the in-out sequence style
 </div>
 
 <ol class="org-ol">
-<li><a id="org98cbf02"></a>Sequence Order Example<br />
-<div class="outline-text-5" id="text-4-1-1-1">
+<li><a id="org6d0b9b5"></a>Sequence Order Example<br />
+<div class="outline-text-5" id="text-5-1-1-1">
 <p>
 Below example is taken from <code>simulate_nb()</code> docs
 </p>
 
-<pre class="example" id="org54cae6a">
+<pre class="example" id="orga908788">
 before simulation
     before group 0
         before segment 0
@@ -450,9 +454,9 @@ after simulation
 </div>
 </div>
 
-<div id="outline-container-orga95cf72" class="outline-3">
-<h3 id="orga95cf72"><span class="section-number-3">4.2.</span> Signature</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-org38b3241" class="outline-3">
+<h3 id="org38b3241"><span class="section-number-3">5.2.</span> Signature</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 Scalars passed here are broadcast so that each row/group receives a copy.
 </p>
@@ -498,67 +502,67 @@ Scalars passed here are broadcast so that each row/group receives a copy.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf0fede8" class="outline-3">
-<h3 id="orgf0fede8"><span class="section-number-3">4.3.</span> Callbacks</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-orgfbdd583" class="outline-3">
+<h3 id="orgfbdd583"><span class="section-number-3">5.3.</span> Callbacks</h3>
+<div class="outline-text-3" id="text-5-3">
 </div>
-<div id="outline-container-org9def397" class="outline-4">
-<h4 id="org9def397"><span class="section-number-4">4.3.1.</span> pre_sim_func_nb()</h4>
-<div class="outline-text-4" id="text-4-3-1">
+<div id="outline-container-org9ee1440" class="outline-4">
+<h4 id="org9ee1440"><span class="section-number-4">5.3.1.</span> pre_sim_func_nb()</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <p>
 Use this to create temporary state arrays to get passed down the call stack
 </p>
 </div>
 </div>
-<div id="outline-container-orgceb6094" class="outline-4">
-<h4 id="orgceb6094"><span class="section-number-4">4.3.2.</span> post_sim_func_nb()</h4>
+<div id="outline-container-org37041a0" class="outline-4">
+<h4 id="org37041a0"><span class="section-number-4">5.3.2.</span> post_sim_func_nb()</h4>
 </div>
-<div id="outline-container-orgc4bbb19" class="outline-4">
-<h4 id="orgc4bbb19"><span class="section-number-4">4.3.3.</span> pre_group_func_nb()</h4>
-<div class="outline-text-4" id="text-4-3-3">
+<div id="outline-container-org241fa08" class="outline-4">
+<h4 id="org241fa08"><span class="section-number-4">5.3.3.</span> pre_group_func_nb()</h4>
+<div class="outline-text-4" id="text-5-3-3">
 <p>
 Same purpose as pre_sim_func_nb() but called at different time
 </p>
 </div>
 </div>
-<div id="outline-container-orgecf853f" class="outline-4">
-<h4 id="orgecf853f"><span class="section-number-4">4.3.4.</span> post_group_func_nb()</h4>
+<div id="outline-container-orgb3dfa5a" class="outline-4">
+<h4 id="orgb3dfa5a"><span class="section-number-4">5.3.4.</span> post_group_func_nb()</h4>
 </div>
-<div id="outline-container-org431c114" class="outline-4">
-<h4 id="org431c114"><span class="section-number-4">4.3.5.</span> pre_segment_func_nb()</h4>
-<div class="outline-text-4" id="text-4-3-5">
+<div id="outline-container-orgb67ef1e" class="outline-4">
+<h4 id="orgb67ef1e"><span class="section-number-4">5.3.5.</span> pre_segment_func_nb()</h4>
+<div class="outline-text-4" id="text-5-3-5">
 <p>
 Use to set order prices and alter internal state (i.e. valuation price)
 Also set call_seq order (i.e. have sells execute first)
 </p>
 </div>
 </div>
-<div id="outline-container-org1466858" class="outline-4">
-<h4 id="org1466858"><span class="section-number-4">4.3.6.</span> post_segment_func_nb()</h4>
+<div id="outline-container-org3d7b06d" class="outline-4">
+<h4 id="org3d7b06d"><span class="section-number-4">5.3.6.</span> post_segment_func_nb()</h4>
 </div>
-<div id="outline-container-org3a12253" class="outline-4">
-<h4 id="org3a12253"><span class="section-number-4">4.3.7.</span> order_func_nb()</h4>
+<div id="outline-container-org17f3e8e" class="outline-4">
+<h4 id="org17f3e8e"><span class="section-number-4">5.3.7.</span> order_func_nb()</h4>
 </div>
-<div id="outline-container-org8566d7d" class="outline-4">
-<h4 id="org8566d7d"><span class="section-number-4">4.3.8.</span> post_order_func_nb()</h4>
+<div id="outline-container-org73fcba8" class="outline-4">
+<h4 id="org73fcba8"><span class="section-number-4">5.3.8.</span> post_order_func_nb()</h4>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd3a1d58" class="outline-2">
-<h2 id="orgd3a1d58"><span class="section-number-2">5.</span> simulate_row_wise_nb()</h2>
-<div class="outline-text-2" id="text-5">
-<p>
-pre_row_func_nb: only called if there is at least on active segment in the row.
-pre_segment_func_nb/order_func_nb: only called if their segment is active.
-If the main task of pre_row_func_nb is to activate/deactivate segments, all segments should be activated by default to allow pre_row_func_nb to be called.
-</p>
+<div id="outline-container-org0062712" class="outline-2">
+<h2 id="org0062712"><span class="section-number-2">6.</span> simulate_row_wise_nb()</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>pre_row_func_nb: only called if there is at least on active segment in the row.</li>
+<li>pre_segment_func_nb/order_func_nb: only called if their segment is active.</li>
+<li>If the main task of pre_row_func_nb is to activate/deactivate segments, all segments should be activated by default to allow pre_row_func_nb to be called.</li>
+</ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: John Doe</p>
-<p class="date">Created: 2022-08-27 Sat 22:18</p>
+<p class="date">Created: 2022-08-27 Sat 22:25</p>
 </div>
 </body>
 </html>

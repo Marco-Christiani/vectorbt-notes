@@ -1,28 +1,8 @@
 #+title: Vbt
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+EXPORT_FILE_NAME: index.html
 #+OPTIONS: ^:nil
 # above option disables super/subscripting bc underscores
-
-* Table of Contents :TOC:
-- [[#useful-documentation][Useful Documentation]]
-- [[#unanswered-questions][Unanswered Questions]]
-  - [[#strategy-implementation-questions][Strategy Implementation Questions]]
-- [[#core-concepts][Core Concepts]]
-  - [[#flexible-indexing][Flexible Indexing]]
-  - [[#broadcasting][Broadcasting]]
-  - [[#using-columns][Using Columns]]
-  - [[#grouping][Grouping]]
-  - [[#call-hierarchy][Call Hierarchy]]
-- [[#workflow-phases][Workflow Phases]]
-  - [[#preparation][Preparation]]
-  - [[#simulation][Simulation]]
-  - [[#construction][Construction]]
-  - [[#analysis][Analysis]]
-- [[#simulate_nb][simulate_nb()]]
-  - [[#call-sequence][Call Sequence]]
-  - [[#signature][Signature]]
-  - [[#callbacks][Callbacks]]
-- [[#simulate_row_wise_nb][simulate_row_wise_nb()]]
 
 * Useful Documentation
 - [[https://vectorbt.dev/api/][Docs: Dev]]
