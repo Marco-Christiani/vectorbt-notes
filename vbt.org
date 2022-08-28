@@ -1,0 +1,245 @@
+#+title: Vbt
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+options: toc:nil
+
+[[https://vectorbt.dev/api/][Docs: Dev]]
+ - [[https://vectorbt.dev/getting-started/resources/][Resources and Examples]]
+ - [[https://vectorbt.dev/api/portfolio/nb/][Vbt Numba Functions]]
+[[https://vectorbt.pro/tutorials/basic-rsi-strategy/][Docs: Pro (tutorials)]]
+
+* Topics
+** Questions
+Have several unanswered questions about this thing.
+
+Focusing on ~from_order_func()~ as its the most robust backtest flow.
+- Theres also a "flexible" version of ~simulate_nb()~
+- ~flex_simulate_nb()~ allows multiple orders per symbol and bar
+
+1. What is the final call sequence?
+2. What does each function in the call sequence do?
+3. What are "groups" and "segments"?
+4. Document each Context enum type
+  - What is ~last_val_price~ used for internally?
+  - Examples online are modifiying internal state of passed contexts in the ~_nb()~ callbacks
+    - i.e. modifying ~last_val_price~ in ~pre_segment_func~
+
+** Strategy Implementation Questions
+What are best practices for sharing memory in functional programming paradigm
+- Passing around mutables appears to be necessary, and could get messy quick
+  - Mutable since we have path dependent calculations
+  - Best solution I can think of is using a structured data format (struct, namedtuple, etc) that stores mutables
+- How can we retrieve this state after execution?
+  - Need a reference from outer scope?
+  - I feel like this is where Rust shines...
+** Flexible Indexing
+[[https://vectorbt.pro/features/#flexibility][Docs]]
+** Broadcasting
+[[https://vectorbt.pro/documentation/fundamentals/#broadcasting][Docs: Pro]]
+[[https://vectorbt.dev/api/portfolio/base/#flexible-indexing][Docs: Dev]]
+
+As a rule of thumb:
+  - If any array is a Pandas object, always produces a Pandas object
+  - If any array is two-dimensional, always produces a two-dimensional array
+  - If all arrays are constants or one-dimensional, always produces a one-dimensional array
+  - If any array is a DataFrame and this array is a one-dimensional NumPy array, broadcasts along columns
+  - If this array is a Series, always broadcasts along rows
+  - Lists and other sequences are converted to NumPy arrays prior to broadcasting
+** Using Columns :keyconcept:
+[[https://vectorbt.pro/tutorials/basic-rsi-strategy/#using-columns][Docs]]
+
+Vectorbt is built around the idea that you can represent each asset, period, parameter combination, and a backtest in general, as a column in a two-dimensional array.
+Instead of computing everything in a loop we can change our code to accept parameters as arrays.
+A function that takes such array will automatically convert multiple parameters into multiple columns
+** Grouping :keyconcept:
+[[https://vectorbt.dev/api/portfolio/base/#grouping][Docs]]
+
+** Call Hierarchy :keyconcept:
+See [[https://vectorbt.dev/api/portfolio/nb/#vectorbt.portfolio.nb.simulate_nb][simulate_nb() docs]]
+
+Based on an imaginary 2D frame
+  - rows: time
+  - columns: assets/features
+
+Each element of the frame represents a potential order (determined by order function)
+
+NOTE: You can only safely access data points that are to the left of the current group and rows that are to the top of the current row.
+
+*** Movement patterns
+In both patterns, we move top-to-bottom (time) and left-to-right (assets/features)
+Differs in which axis moves faster
+1. Column-Major: ~simulate_nb()~
+   - Process each column first
+   - For when columns are independent
+2. Row-Major: ~simulate_row_wise_nb()~
+  - Process each row first
+  - For when rows are independent?
+*** Blocks
+Frame is divided into blocks:
+  - *Columns*: Assets/features
+  - *Groups:* Capital sharing?
+    - I.e. Groups of columns that may or may not share capital
+  - *Rows:* Time step
+  - *Segments:* Collections of groups within a group and time step
+    - Each segment defines a call sequence to execute order
+  - *Elements*
+Each block has:
+  - Context: Its own context (passed to pre/post callbacks)
+  - pre-processing callback function:
+    - Called before entering the block
+    - Returns a tuple
+    - Tuple is unpacked and passed as arguments to next function in call hiearchy
+    - I.e. Prepare arrays or do custom calculations
+  - post-processing callback function:
+    - Called just before exiting block and moving to next function in call hiearchy
+    - I.e. Write user-defined arrays such as returns
+* Workflow Phases
+[[https://vectorbt.dev/api/portfolio/base/#workflow][Docs]]
+** Preparation
+Occurs in a particular class method
+
+  - Receives a set of inputs, such as signal arrays and other parameters
+  - Resolves parameter defaults by searching for them in the global settings
+  - Brings input arrays to a single shape
+  - Does some basic validation of inputs and converts Pandas objects to NumPy arrays
+  - Passes everything to a Numba-compiled simulation function
+
+** Simulation
+Occurs in numba simulation function
+
+For each asset and timestamp (= element):
+  - Gets all available information related to this element and executes the logic
+  - Generates an order or skips the element altogether
+  - If an order has been issued, processes the order and fills/ignores/rejects it
+  - If the order has been filled, registers the result by appending it to the order records
+  - Updates the current state such as the cash and asset balances
+** Construction
+Occurs in class method
+- Receives the returned order records and initializes a new Portfolio object
+** Analysis
+Occurs in ~Portfolio~ object
+- Offers a broad range of risk & performance metrics based on order records
+
+* simulate_nb()
+[[https://vectorbt.dev/api/portfolio/nb/#vectorbt.portfolio.nb.simulate_nb][Docs]]
+** Call Sequence
+- ~pre_sim_func_nb(SimulationContext):~ Before Simulation
+- ~post_sim_func_nb(SimulationContext):~ After Simulation
+- ~pre_group_func_nb(GroupContext):~ Before Group
+- ~post_group_func_nb(GroupContext):~ After Group
+- ~pre_segment_func_nb(SegmentContext):~ Before Segment
+- ~post_segment_func_nb(SegmentContext):~ After Segment
+- ~order_func_nb(OrderContext):~ Order
+- ~post_order_func_nb(PostOrderContext):~ After Order
+
+#+CAPTION: simulate_nb call sequence
+#+NAME:   fig:simulate_nb_fig
+[[./simulate_nb.gif]]
+
+#+CAPTION: context information
+#+NAME:   fig:context_fig
+[[./context_info.png]]
+
+*** Visualize Sequence
+Note that this changes for row-wise variation
+Can be reordered to reflect the in-out sequence style
+
+- ~pre_sim_func_nb()~
+  - ~pre_group_func_nb()~
+    - ~pre_segment_func_nb()~
+      - ~order_func_nb()~
+      - ~post_order_func_nb()~
+    - ~post_segment_func_nb()~
+  - ~post_group_func_nb()~
+- ~post_sim_func_nb()~
+
+**** Sequence Order Example
+Below example is taken from ~simulate_nb()~ docs
+
+#+begin_example
+before simulation
+    before group 0
+        before segment 0
+            creating order 0 at column 0
+                order status: 0
+            creating order 1 at column 1
+                order status: 0
+            creating order 2 at column 2
+                order status: 0
+        after segment 0
+        before segment 2
+            creating order 0 at column 1
+                order status: 0
+            creating order 1 at column 2
+                order status: 0
+            creating order 2 at column 0
+                order status: 0
+        after segment 2
+        before segment 4
+            creating order 0 at column 0
+                order status: 0
+            creating order 1 at column 2
+                order status: 0
+            creating order 2 at column 1
+                order status: 0
+        after segment 4
+    after group 0
+after simulation
+#+end_example
+
+** Signature
+Scalars passed here are broadcast so that each row/group receives a copy.
+ - i.e. Fees, call-seq, size, etc. can be custom set per row, this is actually neat
+
+#+begin_src python
+simulate_nb(
+    target_shape,
+    group_lens,
+    init_cash,
+    cash_sharing,
+    call_seq,
+    segment_mask=array(True),
+    call_pre_segment=False,
+    call_post_segment=False,
+    pre_sim_func_nb=no_pre_func_nb,
+    pre_sim_args=(),
+    post_sim_func_nb=no_post_func_nb,
+    post_sim_args=(),
+    pre_group_func_nb=no_pre_func_nb,
+    pre_group_args=(),
+    post_group_func_nb=no_post_func_nb,
+    post_group_args=(),
+    pre_segment_func_nb=no_pre_func_nb,
+    pre_segment_args=(),
+    post_segment_func_nb=no_post_func_nb,
+    post_segment_args=(),
+    order_func_nb=no_order_func_nb,
+    order_args=(),
+    post_order_func_nb=no_post_func_nb,
+    post_order_args=(),
+    close=array(nan),
+    ffill_val_price=True,
+    update_value=False,
+    fill_pos_record=True,
+    max_orders=None,
+    max_logs=0,
+    flex_2d=True
+)
+#+end_src
+** Callbacks
+*** pre_sim_func_nb()
+Use this to create temporary state arrays to get passed down the call stack
+*** post_sim_func_nb()
+*** pre_group_func_nb()
+Same purpose as pre_sim_func_nb() but called at different time
+*** post_group_func_nb()
+*** pre_segment_func_nb()
+Use to set order prices and alter internal state (i.e. valuation price)
+Also set call_seq order (i.e. have sells execute first)
+*** post_segment_func_nb()
+*** order_func_nb()
+*** post_order_func_nb()
+
+* simulate_row_wise_nb()
+pre_row_func_nb: only called if there is at least on active segment in the row.
+pre_segment_func_nb/order_func_nb: only called if their segment is active.
+If the main task of pre_row_func_nb is to activate/deactivate segments, all segments should be activated by default to allow pre_row_func_nb to be called.
